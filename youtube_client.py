@@ -1,16 +1,29 @@
 import collections
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3"
-YOUTUBE_API_KEY = ""
+YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 
-def get_category_name(category_id):
-    url = f"{YOUTUBE_API_URL}/videoCategories?id={category_id}&key={YOUTUBE_API_KEY}&part=snippet"
+def get_category_names(category_ids):
+    category_ids_param = ",".join(category_ids)
+    url = f"{YOUTUBE_API_URL}/videoCategories?id={category_ids_param}&key={YOUTUBE_API_KEY}&part=snippet"
 
     data = requests.get(url).json()
 
-    return data.get('items')[0]['snippet']['title']
+    result = dict()
+    for item in data.get('items', []):
+        category_name = item['snippet']['title']
+        category_id = item['id']
+
+        result[category_id] = category_name
+
+    return result
 
 
 def get_video_categories_and_tags(video_ids):
