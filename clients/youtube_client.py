@@ -10,6 +10,20 @@ YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3"
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 
+def get_categories(video_ids_per_year):
+    print("Request Youtube metadata for watched videos")
+    categories = get_video_categories_and_tags(video_ids_per_year['2024'])
+    category_names = get_category_names(categories.keys())
+
+    # replace category_id with category_name
+    for category_id in list(categories.keys()):
+        category_name = category_names[category_id]
+        categories[category_name] = categories.pop(category_id)
+
+    print(f"\nYoutube Categories: {categories}\n")
+    return categories
+
+
 def get_category_names(category_ids):
     category_ids_param = ",".join(category_ids)
     url = f"{YOUTUBE_API_URL}/videoCategories?id={category_ids_param}&key={YOUTUBE_API_KEY}&part=snippet"
@@ -49,5 +63,4 @@ def get_video_categories_and_tags(video_ids):
             for tag in tags:
                 result[category_id][tag] += 1
 
-    print('result', result)
     return result
