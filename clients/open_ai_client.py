@@ -46,7 +46,7 @@ def combine_similar_tags_into_single_topic(categories):
     return all_topics
 
 
-PROMPT = """You will given a table with 3 columns: Category, Tag, Watched times.
+PROMPT = """You will be given a table with 3 columns: Category, Tag, Watched times.
 A new row starts on a new line and cells are divided using comma delimiter following CSV format.
 
 Don't change the first column "Category", only combine similar tags into a single row and sum the Watched times of all combined rows in a new row.

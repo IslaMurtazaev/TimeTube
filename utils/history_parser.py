@@ -16,9 +16,16 @@ def parse_video_ids_by_year(json_path):
             if item.get("details", [{"name": ""}])[0].get("name") == "From Google Ads":
                 continue
             title = item.get("title", "")
-            title_url = item.get("titleUrl", "").split('\u003d')[1]
+
+            title_url = item.get("titleUrl", "")
+
+            # skip non video posts
+            if '\u003d' not in title_url:
+                continue
+
+            video_id = title_url.split('\u003d')[1]
             # Filter out removed videos with no title
-            if not title_url or title_url in title:
+            if not video_id or video_id in title:
                 continue
             time = item.get("time", "")
 
@@ -26,7 +33,7 @@ def parse_video_ids_by_year(json_path):
             try:
                 date_obj = datetime.fromisoformat(time.replace("Z", "+00:00"))
                 year_key = date_obj.strftime("%Y")
-                watched_per_year[year_key].append(title_url)
+                watched_per_year[year_key].append(video_id)
             except ValueError:
                 print(f"Skipping invalid time format: {time}")
 
