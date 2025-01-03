@@ -1,3 +1,7 @@
 .idea/
 .env
 venv/
+
+# artefacts
+watch-history.json
+output.csv
