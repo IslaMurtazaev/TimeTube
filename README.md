@@ -21,13 +21,15 @@ the other is OpenAI API key to help with categorization.
 3. Setup python virtual environment `python -m venv venv`
 4. Activate the virtual environment `source ./venv/bin/activate`
 5. Install python packages `pip install -r requirements.txt`
-6. Download your YouTube History from Google Takeout and select JSON format.
-![youtube_history1.png](readme_media%2Fyoutube_history1.png)
- Deselect all other services.
-![youtube_history2.png](readme_media%2Fyoutube_history2.png)
-7. Unpack the downloaded content, find `watch-history.json` in `YouTube and YouTube Music/history/`
+6. When downloading your YouTube History from Google Takeout, deselect all other services and set the history format to JSON.
+<p>
+ <img alt="youtube_history_download" src="./readme_media/youtube_history1.png" width="45%" />
+ <img alt="youtube_history_download2" src="./readme_media/youtube_history2.png" width="45%" />
+</p>
+
+8. Unpack the downloaded content, and find `watch-history.json` in `YouTube and YouTube Music/history/`
 and move it to the project root directory
-8. Generate YouTube and OpenAI API keys and pase them in `.env` file in the root of the project
+9. Generate YouTube and OpenAI API keys and paste them into `.env` file in the root of the project
 ```
 YOUTUBE_API_KEY=***
 OPENAI_API_KEY=***
